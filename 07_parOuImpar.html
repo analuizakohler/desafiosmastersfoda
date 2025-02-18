@@ -4,5 +4,17 @@
     Criar uma função parOuImpar(numero) que exibe se o número é par ou ímpar, que será informado pelo usuário.
     */
 
+    let numUsuario = Number(prompt(`informe um número`));
+
+    function parOuImpar(numero){
+        if(numero % 2 != 0){
+            return "impar";
+        }
+        else{
+            return "par"
+        }
+    }
     
+    let resultado = parOuImpar(numUsuario);
+    alert(resultado);
 </script>
