@@ -13,6 +13,70 @@
     4. Criar uma função calcularValorTotalEstoque() que retorna o valor total dos produtos no estoque.
     5. Criar um menu (switch case) para o usuário escolher ações repetidamente (entre as funções desenvolvidas) até decidir sair (opção para sair - 0).
     */
+    function buscarProduto(nome) {
+        const produto = estoque.find(item => item.nome.toLowerCase() === nome.toLowerCase());
+        if (produto) {
+            alert(`Produto encontrado: ${produto.nome}, Preço: R$${produto.preco}, Quantidade: ${produto.quantidade}`);
+        } else {
+            alert("Produto não encontrado.");
+        }
+    }
+    function adicionarEstoque(id, qtd) {
+        const produto = estoque.find(item => item.id === id);
+        if (produto) {
+            produto.quantidade += qtd;
+            alert(`${qtd} unidades de ${produto.nome} adicionadas ao estoque.`);
+        } else {
+            alert("Produto não encontrado.");
+        }
+    }
+    function venderProduto(id, qtd) {
+        const produto = estoque.find(item => item.id === id);
+        if (produto) {
+            if (produto.quantidade >= qtd) {
+                produto.quantidade -= qtd;
+                alert(`${qtd} unidades de ${produto.nome} vendidas.`);
+            } else {
+                alert("Quantidade solicitada excede o estoque disponível.");
+            }
+        } else {
+            alert("Produto não encontrado.");
+        }
+    }
+    function calcularValorTotalEstoque() {
+        let valorTotal = 0;
+        for (let i = 0; i < estoque.length; i++) {
+           valorTotal += estoque[i].preco * estoque[i].quantidade;
+    }
+        alert(`Valor total do estoque: R$${valorTotal}`);
+    }
+    function menu() {
+        let opcao;
+        do {
+            opcao = Number(prompt("Escolha uma opção:\n1. Buscar produto\n2. Adicionar estoque\n3. Vender produto\n4. Calcular valor total do estoque\n0. Sair"));
 
+            switch (opcao) {
+                case 1:
+                    const nomeProduto = prompt("Digite o nome do produto para buscar:");
+                    buscarProduto(nomeProduto);
+                    break;
+                case 2:
+                    const idAdicionar = Number(prompt("Digite o ID do produto para adicionar ao estoque:"));
+                    const qtdAdicionar = Number(prompt("Digite a quantidade a ser adicionada:"));
+                    adicionarEstoque(idAdicionar, qtdAdicionar);
+                    break;
+                case 3:
+                    const idVender = Number(prompt("Digite o ID do produto para vender:"));
+                    const qtdVender = Number(prompt("Digite a quantidade a ser vendida:"));
+                    venderProduto(idVender, qtdVender);
+                    break;
+                case 4:
+                    calcularValorTotalEstoque();
+                    break;
+                default:
+            }
+        } while (opcao !== 0);
+    }
+    menu();
 
 </script>

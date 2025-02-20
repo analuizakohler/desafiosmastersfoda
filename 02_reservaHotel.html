@@ -12,6 +12,81 @@
     4. Criar uma função calcularFaturamento() que soma o valor de todas as reservas feitas.
     5. Criar um loop (while) para o usuário interagir com as opções até escolher sair (opção 0).
     */
-
+   
+    function listarQuartosDisponiveis() {
+        let mensagem = "Quartos disponíveis:\n";
+        let encontrados = false;
+        for (let i = 0; i < quartos.length; i++) {
+            if (quartos[i].disponivel) {
+                mensagem += `Número: ${quartos[i].numero} - Tipo: ${quartos[i].tipo} - Preço: R$${quartos[i].preco}\n`;
+                encontrados = true;
+            }
+        }
+        if (encontrados) {
+            alert(mensagem);
+        } else {
+            alert("Nenhum quarto disponível no momento.");
+        }
+    }
+    function reservarQuarto(nmr) {
+        let quarto = quartos.find(q => q.nmr === nmr);
+        if (quarto) {
+            if (quarto.disponivel) {
+                quarto.disponivel = false;
+                alert(`Quarto ${nmr} reservado com sucesso!`);
+            } else {
+                alert("Este quarto já está ocupado.");
+            }
+        } else {
+            alert("Número de quarto inválido.");
+        }
+    }
+    function cancelarReserva(nmr) {
+        let quarto = quartos.find(q => q.nmr === nmr);
+        if (quarto) {
+            if (!quarto.disponivel) {
+                quarto.disponivel = true;
+                alert(`Reserva do quarto ${nmr} cancelada.`);
+            } else {
+                alert("Este quarto já está disponível.");
+            }
+        } else {
+            alert("Número de quarto inválido.");
+        }
+    }
+    function calcularFaturamento() {
+        let total = 0;
+        for (let i = 0; i < quartos.length; i++) {
+            if (!quartos[i].disponivel) {
+                total += quartos[i].preco;
+            }
+        }
+        alert(`Faturamento total das reservas: R$${total}`);
+    }
+    function menu() {
+        let opcao;
+        while (opcao !== 0) {
+            opcao = Number(prompt("Escolha uma opção:\n" +"1. Listar quartos disponíveis\n" +"2. Reservar um quarto\n" + "3. Cancelar uma reserva\n" + "4. Calcular faturamento\n" + "0. Sair"));
+            switch (opcao) {
+                case 1:
+                    listarQuartosDisponiveis();
+                    break;
+                case 2:
+                    const numReserva = Number(prompt("Digite o número do quarto para reservar:"));
+                    reservarQuarto(numReserva);
+                    break;
+                case 3:
+                    const numCancelamento = Number(prompt("Digite o número do quarto para cancelar a reserva:"));
+                    cancelarReserva(numCancelamento);
+                    break;
+                case 4:
+                    calcularFaturamento();
+                    break;
+                default:
+                    alert("Opção inválida. Tente novamente.");
+            }
+        }
+    }
+    menu();
     
 </script>

@@ -7,6 +7,38 @@
     3. Criar uma função listarItens() que exibe todos os itens da lista.
     4. Criar um loop(while) para permitir ao usuário interagir com as opções até escolher sair.
     */
-    
-    
+
+    function adicionarItem(lista) {
+        let itemAdd = prompt(`Informe o item que deseja adicionar.`);
+        listaCompras.push(itemAdd);
+        return listaCompras;
+    }
+    let resultado = adicionarItem(listaCompras);
+    function removerItem(lista) {
+        let itemRemove = prompt(`Item que deseja remover (${resultado.join(", ")}).`);
+        if (resultado.includes(itemRemove)) {
+            removido = listaCompras.indexOf(itemRemove);
+            listaCompras.splice(removido, 1);
+        }
+        else {
+            alert(`Este item não existe na lista.`)
+        }
+        return listaCompras;
+    }
+    resultado = removerItem(listaCompras);
+    function listaItens(lista) {
+        return listaCompras.join(", ");
+    }
+    resultado = listaItens(resultado);
+    alert(resultado);
+
+    let loop = prompt(`Voltar para o começo?`);
+    while (loop == "sim" || loop == "s" || loop == "Sim") {
+        resultado = adicionarItem(listaCompras);
+        resultado = removerItem(listaCompras);
+        resultado = listaItens(resultado);
+        alert(resultado);
+        let loop = prompt(`Voltar para o começo?`);
+    }
+
 </script>
